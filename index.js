@@ -1,17 +1,16 @@
 require("dotenv").config();
 
+const express = require("express");
+const querystring = require("querystring");
+const axios = require("axios");
+const path = require("path");
+const app = express();
+
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
 const FRONTEND_URI = process.env.FRONTEND_URI;
 const PORT = process.env.PORT || 8888;
-
-const express = require("express");
-const querystring = require("querystring");
-const axios = require("axios");
-const path = require("path");
-
-const app = express();
 
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, "./client/build")));
