@@ -5,10 +5,16 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import { accessToken, logout, getCurrentUserProfile } from "./spotify";
-import { catchErrors } from "./utils";
+import { accessToken, logout } from "./spotify";
 import { GlobalStyle } from "./styles";
-import { Login, Profile } from "./pages";
+import {
+  Login,
+  Profile,
+  TopArtists,
+  TopTracks,
+  Playlists,
+  Playlist,
+} from "./pages";
 import styled from "styled-components/macro";
 
 const StyledLogoutButton = styled.button`
@@ -39,17 +45,9 @@ function ScrollToTop() {
 
 function App() {
   const [token, setToken] = useState(null);
-  const [profile, setProfile] = useState(null);
 
   useEffect(() => {
     setToken(accessToken);
-
-    const fetchData = async () => {
-      const { data } = await getCurrentUserProfile();
-      setProfile(data);
-    };
-
-    catchErrors(fetchData());
   }, []);
 
   return (
@@ -67,16 +65,16 @@ function App() {
 
               <Switch>
                 <Route path="/top-artists">
-                  <h1>Top Artists</h1>
+                  <TopArtists />
                 </Route>
                 <Route path="/top-tracks">
-                  <h1>Top Tracks</h1>
+                  <TopTracks />
                 </Route>
                 <Route path="/playlists/:id">
-                  <h1>Playlist</h1>
+                  <Playlist />
                 </Route>
                 <Route path="/playlists">
-                  <h1>Playlists</h1>
+                  <Playlists />
                 </Route>
                 <Route path="/">
                   <Profile />
