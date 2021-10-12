@@ -1,29 +1,26 @@
 require("dotenv").config();
 
-const express = require("express");
-const querystring = require("querystring");
-const app = express();
-const axios = require("axios");
-const path = require("path");
-
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
 const FRONTEND_URI = process.env.FRONTEND_URI;
 const PORT = process.env.PORT || 8888;
 
-// Priority serve any static files
-app.use(express.static(path.resolve(_dirname, ".client/build")));
+const express = require("express");
+const querystring = require("querystring");
+const axios = require("axios");
+const path = require("path");
 
-app.get("/", (req, res) => {
-  const data = {
-    name: "Anand",
-    isAwesome: true,
-  };
-  res.json(data);
-});
+const app = express();
 
-// Generates random strings containing letters and numbers
+// Priority serve any static files.
+app.use(express.static(path.resolve(__dirname, "./client/build")));
+
+/**
+ * Generates a random string containing numbers and letters
+ * @param  {number} length The length of the string
+ * @return {string} The generated string
+ */
 const generateRandomString = (length) => {
   let text = "";
   const possible =
@@ -44,7 +41,7 @@ app.get("/login", (req, res) => {
     " "
   );
 
-  const queryparams = querystring.stringify({
+  const queryParams = querystring.stringify({
     client_id: CLIENT_ID,
     response_type: "code",
     redirect_uri: REDIRECT_URI,
@@ -52,7 +49,7 @@ app.get("/login", (req, res) => {
     scope: scope,
   });
 
-  res.redirect(`https://accounts.spotify.com/authorize?${queryparams}`);
+  res.redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
 });
 
 app.get("/callback", (req, res) => {
@@ -67,7 +64,7 @@ app.get("/callback", (req, res) => {
       redirect_uri: REDIRECT_URI,
     }),
     headers: {
-      content_type: "application/x-www-form-urlencoded",
+      "content-type": "application/x-www-form-urlencoded",
       Authorization: `Basic ${new Buffer.from(
         `${CLIENT_ID}:${CLIENT_SECRET}`
       ).toString("base64")}`,
@@ -82,9 +79,8 @@ app.get("/callback", (req, res) => {
           refresh_token,
           expires_in,
         });
-        // redirect to react app
-        res.redirect(`${FRONTEND_URI}?${queryParams}`);
-        // pass along query params
+
+        res.redirect(`${FRONTEND_URI}/?${queryParams}`);
       } else {
         res.redirect(`/?${querystring.stringify({ error: "invalid_token" })}`);
       }
@@ -105,7 +101,7 @@ app.get("/refresh_token", (req, res) => {
       refresh_token: refresh_token,
     }),
     headers: {
-      content_type: "application/x-www-form-urlencoded",
+      "content-type": "application/x-www-form-urlencoded",
       Authorization: `Basic ${new Buffer.from(
         `${CLIENT_ID}:${CLIENT_SECRET}`
       ).toString("base64")}`,
@@ -121,7 +117,7 @@ app.get("/refresh_token", (req, res) => {
 
 // All remaining requests return the React app, so it can handle routing.
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(_dirname, "./client/build", "index.html"));
+  res.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
 });
 
 app.listen(PORT, () => {
