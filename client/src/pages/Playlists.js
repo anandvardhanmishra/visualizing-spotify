@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { catchErrors } from "../utils";
 import { getCurrentUserPlaylists } from "../spotify";
-import { SectionWrapper, PlaylistsGrid } from "../components";
+import { catchErrors } from "../utils";
+import { SectionWrapper, PlaylistsGrid, Loader } from "../components";
 
 const Playlists = () => {
   const [playlistsData, setPlaylistsData] = useState(null);
@@ -10,8 +10,8 @@ const Playlists = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const userPlaylists = await getCurrentUserPlaylists();
-      setPlaylistsData(userPlaylists.data);
+      const { data } = await getCurrentUserPlaylists();
+      setPlaylistsData(data);
     };
 
     catchErrors(fetchData());
@@ -47,8 +47,8 @@ const Playlists = () => {
 
   return (
     <main>
-      <SectionWrapper title="Playlists" breadcrumb="true">
-        {playlists && playlists && <PlaylistsGrid playlists={playlists} />}
+      <SectionWrapper title="Public Playlists" breadcrumb={true}>
+        {playlists ? <PlaylistsGrid playlists={playlists} /> : <Loader />}
       </SectionWrapper>
     </main>
   );
