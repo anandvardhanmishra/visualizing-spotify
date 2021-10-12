@@ -2,6 +2,8 @@
 
 Visualizing your Spotify app - top tracks, artists, playlists
 
+![Homepage](/screenshots/Homepage.png?raw=true "Homepage")
+
 ## Logging In
 
 Spotify App API in development mode only allows restricted access. You won't be able to access the project if you login. You need to setup. Steps below.
