@@ -2,6 +2,10 @@
 
 Visualizing your Spotify app - top tracks, artists, playlists
 
+## Logging In
+
+Spotify App API in development mode only allows restricted access. You won't be able to access the project if you login. You need to setup. Steps below.
+
 ## Local Installation & Set Up
 
 1. Register a Spotify App in your [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/) and add `http://localhost:8888/callback` as a Redirect URI in the app settings
