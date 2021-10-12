@@ -2,7 +2,11 @@
 
 Visualizing your Spotify app - top tracks, artists, playlists
 
+App set up steps below 
+
 ![Homepage](/screenshots/Homepage.png?raw=true "Homepage")
+
+![Top Tracks](/screenshots/TopTracks.png?raw=true "Top Tracks")
 
 ## Logging In
 
