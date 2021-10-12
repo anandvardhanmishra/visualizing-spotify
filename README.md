@@ -10,7 +10,7 @@ App set up steps below
 
 ## Logging In
 
-Spotify App API in development mode only allows restricted access. You won't be able to access the project if you login. You need to setup. Steps below. If you want to try without setting up, send me your email and I'll add access to your profile on my end. anand@anandvmishra.com
+Spotify App API in development mode only allows restricted access. You won't be able to access the project if you login. You need to setup. Steps below. If you want to try without setting up, send me your email and I'll add access to your profile on my end 😁 anand@anandvmishra.com
 
 ## Local Installation & Set Up
 
