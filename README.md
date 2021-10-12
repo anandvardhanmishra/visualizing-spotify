@@ -1,6 +1,6 @@
-# Spotify Connected App
+# Visualize Spotify App
 
-End product of the "Build a Spotify Connected App" newline course
+Visualizing your Spotify app - top tracks, artists, playlists
 
 ## Local Installation & Set Up
 
